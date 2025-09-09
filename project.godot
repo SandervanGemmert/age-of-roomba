@@ -11,5 +11,6 @@ config_version=5
 [application]
 
 config/name="Age of Roomba"
+run/main_scene="uid://e0il7u3bnrik"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

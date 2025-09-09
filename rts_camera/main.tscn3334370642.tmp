@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwbhgbdt8rnt1"]
+
+[ext_resource type="Script" uid="uid://dubp6fiyksaoc" path="res://rts_camera/main.gd" id="1_cdxdm"]
+
+[node name="RTS_Camera" type="Node3D"]
+script = ExtResource("1_cdxdm")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.64679, 0.762668, 0, -0.762668, 0.64679, 0, 10, 11.5991)
