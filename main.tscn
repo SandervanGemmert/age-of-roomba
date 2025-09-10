@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhssnvrjksjkp" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://bfqdvnn4ya8q8" path="res://images/Poliigon_WoodVeneerOak_7760_BaseColor.jpg" id="2_h2yge"]
-[ext_resource type="PackedScene" uid="uid://bwbhgbdt8rnt1" path="res://rts_camera/main.tscn" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://bjcs6t24tawue" path="res://rts_camera/rts_camera.gd" id="3_h2yge"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -18,6 +18,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
+specular_mode = 2
 albedo_texture = ExtResource("2_h2yge")
 uv1_scale = Vector3(6, 6, 6)
 
@@ -39,17 +40,13 @@ metadata/_edit_lock_ = true
 environment = SubResource("Environment_h2yge")
 
 [node name="Sun" type="DirectionalLight3D" parent="World"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 4.73239, 6.98364)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, -4.61149, 4.73239, 6.98364)
 shadow_enabled = true
+directional_shadow_mode = 0
 
 [node name="Plane" type="MeshInstance3D" parent="World"]
 material_override = SubResource("StandardMaterial3D_0xm2m")
 mesh = SubResource("PlaneMesh_h2yge")
-
-[node name="RTS_Camera" parent="World" instance=ExtResource("3_h2yge")]
-
-[node name="Camera3D" parent="World/RTS_Camera" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.517572, 0, 5.92446)
@@ -79,4 +76,14 @@ mesh = SubResource("CylinderMesh_h2yge")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.79598, 0, 3.41064)
 mesh = SubResource("CylinderMesh_h2yge")
 
-[editable path="World/RTS_Camera"]
+[node name="CameraPosition" type="Node3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.05511)
+script = ExtResource("3_h2yge")
+
+[node name="CameraRotationX" type="Node3D" parent="World/CameraPosition"]
+
+[node name="CameraZoomPivot" type="Node3D" parent="World/CameraPosition/CameraRotationX"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="World/CameraPosition/CameraRotationX/CameraZoomPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42672, 9.41084)
